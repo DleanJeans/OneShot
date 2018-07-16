@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/world/Island.gd" type="Script" id=1]
+
+[node name="Island" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+shrinking_island = null
+color = Color( 0.0643616, 0.867188, 0.359149, 1 )
+
+

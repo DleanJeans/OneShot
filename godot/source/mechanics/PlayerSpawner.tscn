@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/mechanics/PlayerSpawner.gd" type="Script" id=1]
+
+[node name="PlayerSpawner" type="Node"]
+
+script = ExtResource( 1 )
+num_players = 99
+players = null
+
+
