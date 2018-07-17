@@ -1,8 +1,16 @@
 extends KinematicBody2D
 
+signal died
+
 export(float) var speed = 200
 
 onready var velocity = Vector2()
+
+var dead = false
+
+func die():
+	dead = true
+	emit_signal('died')
 
 func move_up():
 	if velocity.y == speed:

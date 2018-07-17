@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/mechanics/Death.gd" type="Script" id=1]
+
+[node name="Death" type="Node"]
+
+script = ExtResource( 1 )
+max_health = 100
+ocean_damage = 10
+regenerate = 2
+shrinking_circle = null
+players = null
+
+[node name="ProcessTimer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="Records" type="Node" parent="." index="1"]
+
+[connection signal="timeout" from="ProcessTimer" to="." method="_on_ProcessTimer_timeout"]
+
+

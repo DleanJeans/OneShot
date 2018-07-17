@@ -13,4 +13,4 @@ func populate():
 		var player = PlayerScene.instance()
 		
 		player.position = position
-		_players.add_child(player)
+		_players.add_child(player, true)
