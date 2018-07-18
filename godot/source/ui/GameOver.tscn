@@ -1,10 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://source/ui/GameOver.gd" type="Script" id=1]
 [ext_resource path="res://assets/FFF_Foward.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://resources/FowardFont50.tres" type="DynamicFont" id=3]
 
 [sub_resource type="DynamicFont" id=1]
+
+size = 35
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 2 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=2]
 
 size = 35
 use_mipmaps = false
@@ -73,8 +81,8 @@ anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -30.0
-margin_bottom = 120.0
+margin_top = -71.5
+margin_bottom = 71.5
 rect_min_size = Vector2( 0, 150 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -92,5 +100,31 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect", "Visibility", "custom_fonts" ]
+
+[node name="PlayAgainButton" type="Button" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -140.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Play Again"
+flat = true
+align = 1
+_sections_unfolded = [ "custom_fonts" ]
+
+[connection signal="pressed" from="PlayAgainButton" to="." method="_on_PlayAgainButton_pressed"]
 
 
