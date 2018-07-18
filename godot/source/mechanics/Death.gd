@@ -18,6 +18,9 @@ export(NodePath) var players
 onready var _circle = get_node(shrinking_circle)
 onready var _players = get_node(players)
 
+func stop():
+	$ProcessTimer.stop()
+
 func _ready():
 	$ProcessTimer.start()
 

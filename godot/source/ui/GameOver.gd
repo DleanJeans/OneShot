@@ -5,11 +5,11 @@ export(NodePath) var players
 onready var _players = get_node(players)
 
 func show():
-	var num_players = _players.get_children().size()
-	if num_players == 1: return
+	var player_count = _players.count()
+	if player_count <= 1: return
 	
 	$Winner.hide()
-	$Placement.text = 'You placed\n#' + str(num_players)
+	$Placement.text = 'You placed\n#' + str(player_count)
 	
 	.show()
 

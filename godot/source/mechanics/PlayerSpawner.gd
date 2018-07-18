@@ -2,7 +2,7 @@ extends Node
 
 var PlayerScene = load("res://source/world/player/Player.tscn")
 
-export(int) var num_players = 99
+export(int) var player_count = 99
 export(NodePath) var players
 export(NodePath) var player
 
@@ -14,7 +14,7 @@ func populate():
 	_player.position = position
 	_player.show()
 	
-	for i in range(0, num_players):
+	for i in range(0, player_count):
 		position = get_parent().get_random_position_in_rect()
 		var player = PlayerScene.instance()
 		

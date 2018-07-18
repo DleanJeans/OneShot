@@ -10,11 +10,9 @@ onready var _players = get_node(players)
 onready var _player = get_node(player)
 
 func check_for_winner(dead_player):
-	var num_players = _players.get_children().size()
-	if _player.dead:
-		num_players -= 1
+	var player_count = _players.count_alive()
 	
-	var one_player_left = num_players - 1 == 1
+	var one_player_left = player_count == 1
 	var dead_player_is_not_the_player = dead_player != _player
 	var player_not_dead = not _player.dead
 	
