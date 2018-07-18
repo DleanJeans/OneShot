@@ -82,7 +82,6 @@ map_color = Color( 0.0712738, 0.675781, 0.290821, 1 )
 
 [node name="Player" parent="World/Players" index="0" instance=ExtResource( 12 )]
 
-editor/display_folded = true
 position = Vector2( 70, 60 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 speed = 500.0
@@ -92,7 +91,7 @@ speed = 500.0
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 4, 4 )
+zoom = Vector2( 1, 1 )
 limit_left = -10000000
 limit_top = -10000000
 limit_right = 10000000
@@ -143,19 +142,22 @@ death_mechanic = NodePath("../../Mechanics/Death")
 
 [node name="GameOver" parent="UI" index="2" instance=ExtResource( 16 )]
 
+visible = false
 players = NodePath("../../World/Players")
 
 [connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
-
-[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 
 [connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
 
 [connection signal="died" from="Mechanics/Death" to="Mechanics/Winning" method="check_for_winner"]
 
+[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
+
 [connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 
 [connection signal="process_step" from="Mechanics/Death" to="UI/Deathbar" method="process"]
+
+[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
 
 [connection signal="player_won" from="Mechanics/Winning" to="UI/GameOver" method="show_for_winner"]
 

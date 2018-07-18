@@ -12,6 +12,7 @@ onready var _player = get_node(player)
 func populate():
 	var position = get_parent().get_random_position_in_rect()
 	_player.position = position
+	_player.show()
 	
 	for i in range(0, num_players):
 		position = get_parent().get_random_position_in_rect()

@@ -35,7 +35,7 @@ func _update_health_records():
 	var health_record
 	
 	for player in _get_players():
-		if player.dead: return
+		if player.dead: continue
 		
 		if _record_exists_for(player):
 			health_record = get_record_for(player)

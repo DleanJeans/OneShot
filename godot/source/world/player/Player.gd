@@ -8,6 +8,11 @@ onready var velocity = Vector2()
 
 var dead = false
 
+func queue_free():
+	if name == 'Player':
+		hide()
+	else: .queue_free()
+
 func die():
 	dead = true
 	emit_signal('died')

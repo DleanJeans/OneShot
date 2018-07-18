@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="OneShot"
-run/main_scene="res://source/Game.tscn"
+run/main_scene="res://source/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]

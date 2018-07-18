@@ -28,6 +28,11 @@ func get_time():
 	
 	return round(the_time)
 
+func stop():
+	$Tween.stop_all()
+	$WaitTimer.stop()
+	$RiseTimer.stop()
+
 func start():
 	current_rise = 0
 	
