@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://source/world/BulletLoot.gd" type="Script" id=1]
+[ext_resource path="res://assets/circle.png" type="Texture" id=2]
+[ext_resource path="res://assets/square.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 20.0
+
+[node name="BulletLoot" type="Area2D"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+amount = 1
+
+[node name="Circle" type="Sprite" parent="." index="0"]
+
+modulate = Color( 1, 0.807843, 0.298039, 0.5 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Bullet" type="Sprite" parent="." index="1"]
+
+modulate = Color( 1, 0.807739, 0.296875, 1 )
+rotation = -0.523599
+scale = Vector2( 0.2, 0.1 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Shape" type="CollisionShape2D" parent="." index="2"]
+
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+
+

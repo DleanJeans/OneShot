@@ -8,6 +8,10 @@ var player
 var outside = true
 
 func process():
+	if player.dead:
+		queue_free()
+		return
+	
 	if outside:
 		_take_damage()
 	else:
@@ -16,9 +20,12 @@ func process():
 func _take_damage():
 	health -= death.get_ocean_damage()
 	if health <= 0:
-		death._died(player)
+		death._kill(player)
 		queue_free()
-		get_parent().remove_child(self)
+
+func queue_free():
+	.queue_free()
+	get_parent().remove_child(self)
 
 func _regenerate():
 	health += death.get_regenerate()

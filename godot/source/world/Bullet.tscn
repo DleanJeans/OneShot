@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://source/world/Bullet.gd" type="Script" id=1]
+[ext_resource path="res://assets/square.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 5.0
+
+[sub_resource type="Gradient" id=2]
+
+offsets = PoolRealArray( 0, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
+
+[node name="Bullet" type="Area2D"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+speed = 2000
+shot_range = 1000
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+visible = false
+self_modulate = Color( 0.925083, 0.996094, 0.428009, 1 )
+scale = Vector2( 0.2, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Shape" type="CollisionShape2D" parent="." index="1"]
+
+rotation = 1.5708
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Trail" type="Node" parent="." index="2"]
+
+[node name="Line" type="Line2D" parent="Trail" index="0"]
+
+modulate = Color( 0.871094, 0.534225, 0.534225, 1 )
+points = PoolVector2Array(  )
+width = 10.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 2 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 2.0
+round_precision = 8
+_sections_unfolded = [ "Fill", "Visibility" ]
+
+[connection signal="body_entered" from="." to="." method="_on_hit"]
+
+

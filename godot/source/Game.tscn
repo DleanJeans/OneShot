@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://source/Game.gd" type="Script" id=1]
 [ext_resource path="res://source/mechanics/PlayerControl.tscn" type="PackedScene" id=2]
@@ -8,18 +8,20 @@
 [ext_resource path="res://source/mechanics/TreeSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/mechanics/Death.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/mechanics/Winning.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/juice/DeathAnimationSystem.tscn" type="PackedScene" id=9]
-[ext_resource path="res://source/world/Island.tscn" type="PackedScene" id=10]
-[ext_resource path="res://source/world/TileMap.gd" type="Script" id=11]
-[ext_resource path="res://source/world/Players.gd" type="Script" id=12]
-[ext_resource path="res://source/world/player/Player.tscn" type="PackedScene" id=13]
-[ext_resource path="res://assets/square.png" type="Texture" id=14]
-[ext_resource path="res://source/ui/Time.tscn" type="PackedScene" id=15]
-[ext_resource path="res://source/ui/Deathbar.tscn" type="PackedScene" id=16]
-[ext_resource path="res://source/ui/Alive.tscn" type="PackedScene" id=17]
-[ext_resource path="res://source/ui/GameOver.tscn" type="PackedScene" id=18]
+[ext_resource path="res://source/mechanics/LootDrop.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/juice/DeathAnimationSystem.tscn" type="PackedScene" id=10]
+[ext_resource path="res://source/world/Island.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/world/TileMap.gd" type="Script" id=12]
+[ext_resource path="res://source/world/Bullets.gd" type="Script" id=13]
+[ext_resource path="res://source/world/Players.gd" type="Script" id=14]
+[ext_resource path="res://source/world/player/Player.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/square.png" type="Texture" id=16]
+[ext_resource path="res://source/ui/Time.tscn" type="PackedScene" id=17]
+[ext_resource path="res://source/ui/Deathbar.tscn" type="PackedScene" id=18]
+[ext_resource path="res://source/ui/Alive.tscn" type="PackedScene" id=19]
+[ext_resource path="res://source/ui/GameOver.tscn" type="PackedScene" id=20]
 
-[node name="Game" type="Node" index="0"]
+[node name="Game" type="Node"]
 
 script = ExtResource( 1 )
 
@@ -60,13 +62,17 @@ players = NodePath("../../World/Players")
 players = NodePath("../../World/Players")
 player = NodePath("../../World/Players/Player")
 
+[node name="LootDrop" parent="Mechanics" index="5" instance=ExtResource( 9 )]
+
+loots = NodePath("../../World/Loots")
+
 [node name="Juice" type="Node" parent="." index="1"]
 
-[node name="DeathAnimationSystem" parent="Juice" index="0" instance=ExtResource( 9 )]
+[node name="DeathAnimationSystem" parent="Juice" index="0" instance=ExtResource( 10 )]
 
 [node name="World" type="Node" parent="." index="2"]
 
-[node name="Island" parent="World" index="0" instance=ExtResource( 10 )]
+[node name="Island" parent="World" index="0" instance=ExtResource( 11 )]
 
 drawing = false
 shrinking_circle = NodePath("../../Mechanics/ShrinkingCircle")
@@ -75,18 +81,24 @@ shrinking_circle = NodePath("../../Mechanics/ShrinkingCircle")
 
 position = Vector2( 0, 10 )
 scale = Vector2( 1000, 1000 )
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 tilemap_width = 10
 tilemap_height = 10.0
 line_color = Color( 0, 0, 0, 0.5 )
 map_color = Color( 0.0712738, 0.675781, 0.290821, 1 )
 
-[node name="Players" type="Node" parent="World" index="2"]
+[node name="Bullets" type="Node" parent="World" index="2"]
 
-script = ExtResource( 12 )
+script = ExtResource( 13 )
+death = NodePath("../../Mechanics/Death")
 
-[node name="Player" parent="World/Players" index="0" instance=ExtResource( 13 )]
+[node name="Players" type="Node" parent="World" index="3"]
+
+script = ExtResource( 14 )
+bullets = NodePath("../Bullets")
+
+[node name="Player" parent="World/Players" index="0" instance=ExtResource( 15 )]
 
 position = Vector2( 70, 60 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -118,16 +130,18 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin" ]
 
-[node name="Trees" type="Node" parent="World" index="3"]
+[node name="Trees" type="Node" parent="World" index="4"]
 
-[node name="Ocean" type="Sprite" parent="World" index="4"]
+[node name="Ocean" type="Sprite" parent="World" index="5"]
 
 visible = false
 modulate = Color( 0, 0.648438, 1, 0.5 )
 position = Vector2( 2000, 2000 )
 scale = Vector2( 80, 80 )
-texture = ExtResource( 14 )
+texture = ExtResource( 16 )
 _sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Loots" type="Node" parent="World" index="6"]
 
 [node name="UI" type="CanvasLayer" parent="." index="3"]
 
@@ -137,22 +151,22 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Time" parent="UI" index="0" instance=ExtResource( 15 )]
+[node name="Time" parent="UI" index="0" instance=ExtResource( 17 )]
 
 margin_top = 80.0
 margin_bottom = 110.0
 shrinking_circle = NodePath("../../Mechanics/ShrinkingCircle")
 
-[node name="Deathbar" parent="UI" index="1" instance=ExtResource( 16 )]
+[node name="Deathbar" parent="UI" index="1" instance=ExtResource( 18 )]
 
 player = NodePath("../../World/Players/Player")
 death_mechanic = NodePath("../../Mechanics/Death")
 
-[node name="Alive" parent="UI" index="2" instance=ExtResource( 17 )]
+[node name="Alive" parent="UI" index="2" instance=ExtResource( 19 )]
 
 players = NodePath("../../World/Players")
 
-[node name="GameOver" parent="UI" index="3" instance=ExtResource( 18 )]
+[node name="GameOver" parent="UI" index="3" instance=ExtResource( 20 )]
 
 visible = false
 players = NodePath("../../World/Players")
@@ -165,15 +179,17 @@ players = NodePath("../../World/Players")
 
 [connection signal="died" from="Mechanics/Death" to="Mechanics/Winning" method="check_for_winner"]
 
+[connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
+
 [connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
 
 [connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 
 [connection signal="process_step" from="Mechanics/Death" to="UI/Deathbar" method="process"]
 
-[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
-
 [connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
+
+[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
 
 [connection signal="player_won" from="Mechanics/Winning" to="UI/GameOver" method="show_for_winner"]
 

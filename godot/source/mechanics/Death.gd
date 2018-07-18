@@ -76,7 +76,7 @@ func _player_outside_circle(player):
 	
 	return distance_to_center > circle_radius
 
-func _died(player):
+func _kill(player):
 	player.die()
 	emit_signal('died', player)
 
