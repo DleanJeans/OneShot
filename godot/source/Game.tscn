@@ -41,7 +41,6 @@ shrinking_circle = NodePath("../ShrinkingCircle")
 
 [node name="PlayerSpawner" parent="Mechanics/Spawners" index="0" instance=ExtResource( 5 )]
 
-player_count = 99
 players = NodePath("../../../World/Players")
 player = NodePath("../../../World/Players/Player")
 
@@ -52,6 +51,7 @@ trees = NodePath("../../../World/Trees")
 
 [node name="Death" parent="Mechanics" index="3" instance=ExtResource( 7 )]
 
+process_interval = 0.2
 shrinking_circle = NodePath("../ShrinkingCircle")
 players = NodePath("../../World/Players")
 
@@ -171,9 +171,9 @@ players = NodePath("../../World/Players")
 
 [connection signal="process_step" from="Mechanics/Death" to="UI/Deathbar" method="process"]
 
-[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
-
 [connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
+
+[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
 
 [connection signal="player_won" from="Mechanics/Winning" to="UI/GameOver" method="show_for_winner"]
 

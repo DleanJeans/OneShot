@@ -5,9 +5,10 @@
 [node name="Death" type="Node"]
 
 script = ExtResource( 1 )
+process_interval = 1
 max_health = 100
-ocean_damage = 10
-regenerate = 2
+ocean_damage_per_sec = 10
+regenerate_per_sec = 2
 shrinking_circle = null
 players = null
 

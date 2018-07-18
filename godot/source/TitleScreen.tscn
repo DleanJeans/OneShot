@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/FowardFont100.tres" type="DynamicFont" id=4]
 [ext_resource path="res://resources/FowardFont50.tres" type="DynamicFont" id=5]
 
-[node name="TitleScreen" type="Control"]
+[node name="TitleScreen" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -66,31 +66,26 @@ position = Vector2( 730, 410 )
 
 position = Vector2( 160, 120 )
 rotation = -0.769934
-scale = Vector2( 1, 1 )
 
 [node name="Tree2" parent="Background" index="4" instance=ExtResource( 3 )]
 
 position = Vector2( 655.738, 83.4348 )
 rotation = 0.348089
-scale = Vector2( 1, 1 )
 
 [node name="Tree3" parent="Background" index="5" instance=ExtResource( 3 )]
 
 position = Vector2( 168.176, 511.334 )
 rotation = -2.41481
-scale = Vector2( 1, 1 )
 
 [node name="Tree5" parent="Background" index="6" instance=ExtResource( 3 )]
 
 position = Vector2( 492.102, 479.385 )
 rotation = 0.439426
-scale = Vector2( 1, 1 )
 
 [node name="Tree4" parent="Background" index="7" instance=ExtResource( 3 )]
 
 position = Vector2( 765.296, 330.99 )
 rotation = 0.504094
-scale = Vector2( 1, 1 )
 
 [node name="Panel" type="Panel" parent="." index="2"]
 

@@ -14,14 +14,14 @@ func process():
 		_regenerate()
 
 func _take_damage():
-	health -= death.ocean_damage
+	health -= death.get_ocean_damage()
 	if health <= 0:
 		death._died(player)
 		queue_free()
 		get_parent().remove_child(self)
 
 func _regenerate():
-	health += death.regenerate
+	health += death.get_regenerate()
 	if health > max_health:
 		health = max_health
 		death._max_health(player)

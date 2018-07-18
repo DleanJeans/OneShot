@@ -8,9 +8,11 @@ signal died(player)
 
 var HealthRecordClass = load('res://source/mechanics/HealthRecord.gd')
 
+export(float) var process_interval = 1
+
 export(float) var max_health = 100
-export(float) var ocean_damage = 10
-export(float) var regenerate = 2
+export(float) var ocean_damage_per_sec = 10
+export(float) var regenerate_per_sec = 2
 
 export(NodePath) var shrinking_circle
 export(NodePath) var players
@@ -18,10 +20,17 @@ export(NodePath) var players
 onready var _circle = get_node(shrinking_circle)
 onready var _players = get_node(players)
 
+func get_ocean_damage():
+	return ocean_damage_per_sec * process_interval
+
+func get_regenerate():
+	return regenerate_per_sec * process_interval
+
 func stop():
 	$ProcessTimer.stop()
 
 func _ready():
+	$ProcessTimer.wait_time = process_interval
 	$ProcessTimer.start()
 
 func get_record_for(player):
