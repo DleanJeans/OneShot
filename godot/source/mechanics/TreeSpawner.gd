@@ -11,6 +11,8 @@ func populate():
 	for i in range(0, num_trees):
 		var position = get_parent().get_random_position_in_circle()
 		var tree = TreeScene.instance()
+		var angle = rand_range(-PI, PI)
 		
 		tree.position = position
+		tree.rotation = angle
 		_trees.add_child(tree)
