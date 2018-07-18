@@ -3,13 +3,18 @@ extends KinematicBody2D
 signal died
 signal shot_bullet
 signal cannot_shoot
+signal picked_up_bullet
 
 export(float) var speed = 200
 
 onready var velocity = Vector2()
 
 var dead = false
-var bullet_count = 1
+var bullet_count = 10
+
+func pick_up_bullet():
+	bullet_count += 1
+	emit_signal('picked_up_bullet')
 
 func queue_free():
 	if name == 'Player':

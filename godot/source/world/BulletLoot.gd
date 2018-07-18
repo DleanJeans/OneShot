@@ -10,5 +10,5 @@ func _on_body_entered(body):
 		pick_up_by(body)
 
 func pick_up_by(player):
-	player.bullet_count += amount
+	player.pick_up_bullet()
 	queue_free()
