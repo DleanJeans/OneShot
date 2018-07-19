@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://source/world/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/world/Tree.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resources/FowardFont100.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/FFF_Foward.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://resources/FowardFont50.tres" type="DynamicFont" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 75
+use_mipmaps = false
+use_filter = false
+extra_spacing_top = 30
+font_data = ExtResource( 4 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [node name="TitleScreen" type="Control" index="0"]
 
@@ -38,6 +47,7 @@ _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="Background" type="Control" parent="." index="1"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -105,18 +115,18 @@ _sections_unfolded = [ "Visibility" ]
 [node name="Title" type="Label" parent="." index="3"]
 
 anchor_left = 0.0
-anchor_top = 0.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.0
-margin_top = 70.0
-margin_bottom = 238.0
+anchor_bottom = 0.5
+margin_top = -67.0
+margin_bottom = 67.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = SubResource( 1 )
 text = "One Shot BR"
 align = 1
 valign = 1

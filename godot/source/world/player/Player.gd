@@ -10,7 +10,7 @@ export(float) var speed = 200
 onready var velocity = Vector2()
 
 var dead = false
-var bullet_count = 10
+var bullet_count = 1
 
 func pick_up_bullet():
 	bullet_count += 1
