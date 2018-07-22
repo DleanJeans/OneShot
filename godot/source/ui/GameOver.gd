@@ -24,4 +24,4 @@ func _ready():
 	hide()
 
 func _on_PlayAgainButton_pressed():
-	get_tree().change_scene('res://source/TitleScreen.tscn')
+	get_tree().change_scene('res://source/Game.tscn')

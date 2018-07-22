@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://source/Game.gd" type="Script" id=1]
 [ext_resource path="res://source/mechanics/PlayerControl.tscn" type="PackedScene" id=2]
@@ -20,7 +20,9 @@
 [ext_resource path="res://source/ui/Deathbar.tscn" type="PackedScene" id=18]
 [ext_resource path="res://source/ui/Alive.tscn" type="PackedScene" id=19]
 [ext_resource path="res://source/ui/BulletCount.tscn" type="PackedScene" id=20]
-[ext_resource path="res://source/ui/GameOver.tscn" type="PackedScene" id=21]
+[ext_resource path="res://source/ui/PauseScene.tscn" type="PackedScene" id=21]
+[ext_resource path="res://source/ui/GameOver.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/sfx/wind.ogg" type="AudioStream" id=23]
 
 [node name="Game" type="Node" index="0"]
 
@@ -171,24 +173,35 @@ players = NodePath("../../World/Players")
 
 player = NodePath("../../World/Players/Player")
 
-[node name="GameOver" parent="UI" index="4" instance=ExtResource( 21 )]
+[node name="PauseScene" parent="UI" index="4" instance=ExtResource( 21 )]
+
+[node name="GameOver" parent="UI" index="5" instance=ExtResource( 22 )]
 
 visible = false
 players = NodePath("../../World/Players")
 
-[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
+[node name="Ambient" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 23 )
+volume_db = 10.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 [connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
+
+[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
 
 [connection signal="player_won" from="Mechanics/Winning" to="UI/GameOver" method="show_for_winner"]
 
 [connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
 
-[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
+[connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
 
 [connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
 
-[connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
+[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 
 [connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 

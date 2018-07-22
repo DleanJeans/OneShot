@@ -80,3 +80,10 @@ func _on_hit(body):
 		stop()
 		if body is load('res://source/world/Player.gd'):
 			get_parent().kill(body)
+			$BulletSoundEffects.play_hit_player()
+		elif body is load('res://source/world/Tree.gd'):
+			$BulletSoundEffects.play_hit_wood()
+
+func _on_WhizArea_body_entered(body):
+	if body.name == 'Player':
+		$BulletSoundEffects.play_whiz()

@@ -11,7 +11,7 @@ var target_ref
 var target
 
 func target_just_shot():
-	if _target_null(): return false
+	if _target_null() or target is Line2D: return false
 	return target.just_shot()
 
 func target_in_bullet_range():

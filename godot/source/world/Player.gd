@@ -69,6 +69,10 @@ func stop_moving():
 func _physics_process(delta):
 	velocity = velocity.clamped(speed)
 	move_and_slide(velocity)
+	
+	if not get_tree().paused and velocity != Vector2():
+		$SoundEffects.play_footstep_grass()
+	else: $SoundEffects.stop_footstep_grass()
 
 func aim():
 	$Gun.show()

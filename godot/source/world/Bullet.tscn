@@ -1,7 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://source/world/Bullet.gd" type="Script" id=1]
-[ext_resource path="res://assets/square.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/square.png" type="Texture" id=2]
+[ext_resource path="res://source/BulletSoundEffects.gd" type="Script" id=3]
+[ext_resource path="res://assets/sfx/player_bullet_hit.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/sfx/wood_bullet_hit_01.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/wood_bullet_hit_02.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/bullet_whiz_01.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/bullet_whiz_02.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/bullet_whiz_03.ogg" type="AudioStream" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -12,6 +19,11 @@ radius = 10.0
 
 offsets = PoolRealArray( 0, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 2, 50 )
 
 [node name="Bullet" type="Area2D"]
 
@@ -60,6 +72,99 @@ sharp_limit = 2.0
 round_precision = 8
 _sections_unfolded = [ "Fill", "Visibility" ]
 
+[node name="WhizArea" type="Area2D" parent="." index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Shape" type="CollisionShape2D" parent="WhizArea" index="0"]
+
+position = Vector2( -10, 0 )
+shape = SubResource( 3 )
+
+[node name="BulletSoundEffects" type="Node2D" parent="." index="4"]
+
+script = ExtResource( 3 )
+
+[node name="HitPlayer" type="AudioStreamPlayer2D" parent="BulletSoundEffects" index="0"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="HitWood" type="Node2D" parent="BulletSoundEffects" index="1"]
+
+[node name="1" type="AudioStreamPlayer2D" parent="BulletSoundEffects/HitWood" index="0"]
+
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="2" type="AudioStreamPlayer2D" parent="BulletSoundEffects/HitWood" index="1"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="Whiz" type="Node2D" parent="BulletSoundEffects" index="2"]
+
+[node name="1" type="AudioStreamPlayer2D" parent="BulletSoundEffects/Whiz" index="0"]
+
+stream = ExtResource( 7 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="2" type="AudioStreamPlayer2D" parent="BulletSoundEffects/Whiz" index="1"]
+
+stream = ExtResource( 8 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="3" type="AudioStreamPlayer2D" parent="BulletSoundEffects/Whiz" index="2"]
+
+stream = ExtResource( 9 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
 [connection signal="body_entered" from="." to="." method="_on_hit"]
+
+[connection signal="body_entered" from="WhizArea" to="." method="_on_WhizArea_body_entered"]
 
 

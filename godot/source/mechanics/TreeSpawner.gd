@@ -14,7 +14,7 @@ func populate():
 		var percent = float(i) / num_trees
 		
 		if percent < 0.05:
-			min_dist = 0
+			min_dist = get_parent().radius_percent(0.1)
 			max_dist = get_parent().radius_percent(0.2)
 		else:
 			min_dist = get_parent().radius_percent(0.2)
