@@ -75,5 +75,5 @@ func _compute_trail_angle():
 func _on_hit(body):
 	if body != shooter:
 		stop()
-		if body is load('res://source/world/player/Player.gd'):
+		if body is load('res://source/world/Player.gd'):
 			get_parent().kill(body)

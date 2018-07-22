@@ -10,10 +10,13 @@ export(float) var speed = 200
 onready var velocity = Vector2()
 
 var dead = false
-var bullet_count = 1
+var bullet_count = 3
 
-func pick_up_bullet():
-	bullet_count += 1
+func has_bullets():
+	return bullet_count > 0
+
+func pick_up_bullet(amount):
+	bullet_count += amount
 	emit_signal('picked_up_bullet')
 
 func queue_free():
@@ -58,10 +61,8 @@ func aim():
 func unaim():
 	$Gun.hide()
 
-func rotate_to_mouse():
-	var mouse_position = get_global_mouse_position()
-	var to_mouse = mouse_position - global_position
-	rotation = to_mouse.angle_to_point(Vector2())
+func face_angle(angle):
+	rotation = angle
 
 var BulletScene = load('res://source/world/Bullet.tscn')
 

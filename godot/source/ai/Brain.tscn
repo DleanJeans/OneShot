@@ -1,0 +1,110 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://source/ai/Brain.gd" type="Script" id=1]
+[ext_resource path="res://source/ai/Vision.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/ai/Steering.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/ai/Attacking.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/ai/Looting.gd" type="Script" id=5]
+[ext_resource path="res://addons/net.kivano.fsm/content/fsm.gd" type="Script" id=6]
+[ext_resource path="res://addons/net.kivano.fsm/assets/ico2d.png" type="Texture" id=7]
+[ext_resource path="res://source/fsm/states/Roam/Roam.tscn" type="PackedScene" id=8]
+[ext_resource path="res://source/fsm/states/Attack/Attack.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/fsm/states/RunToLand/RunToLand.tscn" type="PackedScene" id=10]
+[ext_resource path="res://source/fsm/states/CollectBullet/CollectBullet.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/fsm/transitions/SeeSomeone/SeeSomeone.tscn" type="PackedScene" id=12]
+[ext_resource path="res://source/fsm/transitions/TargetKilled/TargetKilled.tscn" type="PackedScene" id=13]
+[ext_resource path="res://source/fsm/transitions/NearRisingSea/NearRisingSea.tscn" type="PackedScene" id=14]
+[ext_resource path="res://source/fsm/transitions/Safe/Safe.tscn" type="PackedScene" id=15]
+[ext_resource path="res://source/fsm/transitions/BulletCollected/BulletCollected.tscn" type="PackedScene" id=16]
+[ext_resource path="res://source/fsm/transitions/SeeBullet/SeeBullet.tscn" type="PackedScene" id=17]
+[ext_resource path="res://source/fsm/transitions/OutOfBullets/OutOfBullets.tscn" type="PackedScene" id=18]
+
+[node name="Brain" type="Node2D"]
+
+script = ExtResource( 1 )
+circle = NodePath("../../../../Mechanics/ShrinkingCircle")
+distance_threshold = 200
+
+[node name="Vision" parent="." index="0" instance=ExtResource( 2 )]
+
+reaction_time = 1.0
+
+[node name="Steering" parent="." index="1" instance=ExtResource( 3 )]
+
+[node name="Attacking" parent="." index="2" instance=ExtResource( 4 )]
+
+[node name="Looting" type="Node2D" parent="." index="3"]
+
+script = ExtResource( 5 )
+
+[node name="FSM" type="Node2D" parent="." index="4"]
+
+script = ExtResource( 6 )
+_sections_unfolded = [ "Create new:" ]
+__meta__ = {
+"_editor_icon": ExtResource( 7 )
+}
+path2LogicRoot = NodePath("..")
+onlyActiveStateOnTheScene = false
+initManually = false
+updateMode = 1
+receiceSignalsOnly4ActiveStatesAndTransitions = true
+enableDebug = false
+"Initial state:" = ""
+"Create new:/Subdirectory for FSM nodes:" = "FSM"
+"Create new:/Create state with name:" = null
+"Create new:/Create transition with name:" = null
+GraphData = {
+
+}
+
+[node name="States" type="Node2D" parent="FSM" index="0"]
+
+[node name="Roam" parent="FSM/States" index="0" instance=ExtResource( 8 )]
+
+[node name="Attack" parent="FSM/States" index="1" instance=ExtResource( 9 )]
+
+[node name="RunToLand" parent="FSM/States" index="2" instance=ExtResource( 10 )]
+
+[node name="CollectBullet" parent="FSM/States" index="3" instance=ExtResource( 11 )]
+
+[node name="Transitions" type="Node2D" parent="FSM" index="1"]
+
+[node name="SeeSomeone" parent="FSM/Transitions" index="0" instance=ExtResource( 12 )]
+
+path2SourceStates = [ NodePath(""), NodePath("../../States/Roam") ]
+path2TargetState = NodePath("../../States/Attack")
+
+[node name="TargetKilled" parent="FSM/Transitions" index="1" instance=ExtResource( 13 )]
+
+path2SourceStates = [ NodePath(""), NodePath("../../States/Attack") ]
+path2TargetState = NodePath("../../States/Roam")
+
+[node name="NearRisingSea" parent="FSM/Transitions" index="2" instance=ExtResource( 14 )]
+
+path2SourceStates = [ NodePath(""), NodePath("../../States/Attack"), NodePath("../../States/Roam") ]
+path2TargetState = NodePath("../../States/RunToLand")
+
+[node name="Safe" parent="FSM/Transitions" index="3" instance=ExtResource( 15 )]
+
+path2SourceStates = [ NodePath(""), NodePath("../../States/RunToLand") ]
+path2TargetState = NodePath("../../States/Roam")
+
+[node name="BulletCollected" parent="FSM/Transitions" index="4" instance=ExtResource( 16 )]
+
+path2SourceStates = [ NodePath(""), NodePath("../../States/CollectBullet") ]
+path2TargetState = NodePath("../../States/Roam")
+
+[node name="SeeBullet" parent="FSM/Transitions" index="5" instance=ExtResource( 17 )]
+
+path2SourceStates = [ NodePath(""), NodePath("../../States/Roam") ]
+path2TargetState = NodePath("../../States/CollectBullet")
+
+[node name="OutOfBullets" parent="FSM/Transitions" index="6" instance=ExtResource( 18 )]
+
+path2SourceStates = [ NodePath(""), NodePath("../../States/Attack") ]
+path2TargetState = NodePath("../../States/Roam")
+
+[connection signal="stateChanged" from="FSM" to="." method="_on_FSM_stateChanged"]
+
+

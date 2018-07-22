@@ -14,14 +14,14 @@
 [ext_resource path="res://source/world/TileMap.gd" type="Script" id=12]
 [ext_resource path="res://source/world/Bullets.gd" type="Script" id=13]
 [ext_resource path="res://source/world/Players.gd" type="Script" id=14]
-[ext_resource path="res://source/world/player/Player.tscn" type="PackedScene" id=15]
+[ext_resource path="res://source/world/Player.tscn" type="PackedScene" id=15]
 [ext_resource path="res://source/ui/Time.tscn" type="PackedScene" id=16]
 [ext_resource path="res://source/ui/Deathbar.tscn" type="PackedScene" id=17]
 [ext_resource path="res://source/ui/Alive.tscn" type="PackedScene" id=18]
 [ext_resource path="res://source/ui/BulletCount.tscn" type="PackedScene" id=19]
 [ext_resource path="res://source/ui/GameOver.tscn" type="PackedScene" id=20]
 
-[node name="Game" type="Node" index="0"]
+[node name="Game" type="Node"]
 
 script = ExtResource( 1 )
 
@@ -43,6 +43,7 @@ shrinking_circle = NodePath("../ShrinkingCircle")
 
 [node name="PlayerSpawner" parent="Mechanics/Spawners" index="0" instance=ExtResource( 5 )]
 
+player_count = 19
 players = NodePath("../../../World/Players")
 player = NodePath("../../../World/Players/Player")
 
@@ -100,8 +101,8 @@ bullets = NodePath("../Bullets")
 
 [node name="Player" parent="World/Players" index="0" instance=ExtResource( 15 )]
 
-position = Vector2( 70, 60 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+position = Vector2( 480, 270 )
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
 speed = 500.0
 
 [node name="Camera" type="Camera2D" parent="World/Players/Player" index="2"]
@@ -168,15 +169,15 @@ players = NodePath("../../World/Players")
 
 [connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
 
+[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
+
+[connection signal="died" from="Mechanics/Death" to="UI/Alive" method="update"]
+
 [connection signal="died" from="Mechanics/Death" to="Mechanics/Winning" method="check_for_winner"]
 
 [connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
 
 [connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
-
-[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
-
-[connection signal="died" from="Mechanics/Death" to="UI/Alive" method="update"]
 
 [connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 

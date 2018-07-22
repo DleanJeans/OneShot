@@ -28,6 +28,9 @@ func get_time():
 	
 	return round(the_time)
 
+func is_closing_in():
+	return $RiseTimer.time_left > 0
+
 func stop():
 	$Tween.stop_all()
 	$WaitTimer.stop()

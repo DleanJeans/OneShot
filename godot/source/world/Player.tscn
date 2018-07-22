@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://source/world/player/Player.gd" type="Script" id=1]
+[ext_resource path="res://source/world/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/square.png" type="Texture" id=2]
 [ext_resource path="res://assets/circle.png" type="Texture" id=3]
 
@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 radius = 20.0
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "Players",
 ]]
 
@@ -18,6 +18,7 @@ collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 speed = 200
 
 [node name="Shape" type="CollisionShape2D" parent="." index="0"]

@@ -14,12 +14,20 @@ config/name="OneShot"
 run/main_scene="res://source/TitleScreen.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+TimeControl="*res://source/TimeControl.gd"
+
 [display]
 
 window/size/width=960
 window/size/height=540
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "net.kivano.fsm" )
 
 [input]
 
@@ -45,8 +53,10 @@ shoot=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_n
 
 [layer_names]
 
-2d_physics/layer_1="NotBullets"
+2d_physics/layer_1="Players"
 2d_physics/layer_2="Bullets"
+2d_physics/layer_3="Loots"
+2d_physics/layer_4="Trees"
 
 [rendering]
 

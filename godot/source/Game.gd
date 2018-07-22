@@ -6,5 +6,4 @@ func _process(delta):
 
 func _ready():
 	randomize()
-	Engine.time_scale = 1
 	$Mechanics/ShrinkingCircle.start()

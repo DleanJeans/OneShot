@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/fsm/states/Roam/Roam.gd" type="Script" id=1]
+
+[node name="Roam" type="Node"]
+
+script = ExtResource( 1 )
+change_direction_cooldown = 1
+
+

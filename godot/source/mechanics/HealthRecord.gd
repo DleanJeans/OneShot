@@ -20,7 +20,7 @@ func process():
 func _take_damage():
 	health -= death.get_ocean_damage()
 	if health <= 0:
-		death._kill(player)
+		death.kill(player)
 		queue_free()
 
 func queue_free():

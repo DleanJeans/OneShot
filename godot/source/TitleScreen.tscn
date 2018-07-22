@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/TitleScreen.gd" type="Script" id=1]
-[ext_resource path="res://source/world/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/world/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/world/Tree.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/FFF_Foward.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://resources/FowardFont50.tres" type="DynamicFont" id=5]
