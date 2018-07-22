@@ -5,6 +5,10 @@ export(float) var reaction_time = 0.5
 var enemies = []
 var bullets_on_screen = []
 
+func player_on_screen(player):
+	var bodies = get_overlapping_bodies()
+	return bodies.find(player) > -1
+
 func see_enemies():
 	return enemies.size() > 0
 

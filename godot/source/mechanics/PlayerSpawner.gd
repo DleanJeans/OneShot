@@ -25,5 +25,6 @@ func populate():
 		_players.add_child(player, true)
 
 func random_position():
+	var min_dist = get_parent().radius_percent(0.05)
 	var max_dist = get_parent().radius_percent(0.1)
-	return get_parent().random_position_circle(0, max_dist)
+	return get_parent().random_position_circle(min_dist, max_dist)

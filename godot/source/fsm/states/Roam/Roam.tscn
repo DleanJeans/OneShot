@@ -7,4 +7,15 @@
 script = ExtResource( 1 )
 change_direction_cooldown = 1
 
+[node name="ChangeTimer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 10.0
+one_shot = false
+autostart = true
+
+[connection signal="timeout" from="ChangeTimer" to="." method="_change_direction"]
+
+[connection signal="timeout" from="ChangeTimer" to="." method="_on_ChangeTimer_timeout"]
+
 

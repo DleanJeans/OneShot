@@ -19,7 +19,9 @@ func target_in_bullet_range():
 	return target_in_range(bullet_range)
 
 func near_target():
-	return target_in_range(enemy_distance)
+	if _target_null(): return false
+	return get_parent().vision.player_on_screen(target)
+#	return target_in_range(enemy_distance)
 
 func target_in_range(the_range):
 	if _target_null(): return false

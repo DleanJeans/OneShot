@@ -45,13 +45,13 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="GunCooldownTimer" type="Timer" parent="." index="3"]
 
 process_mode = 1
-wait_time = 0.5
+wait_time = 0.75
 one_shot = true
 autostart = false
 
 [node name="SoundEffects" parent="." index="4" instance=ExtResource( 4 )]
 
-[connection signal="cannot_shoot" from="." to="SoundEffects" method="play_empty_gun"]
+[connection signal="gun_empty" from="." to="SoundEffects" method="play_empty_gun"]
 
 [connection signal="picked_up_bullet" from="." to="SoundEffects" method="play_ammo_pickup"]
 

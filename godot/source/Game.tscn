@@ -175,6 +175,11 @@ player = NodePath("../../World/Players/Player")
 
 [node name="PauseScene" parent="UI" index="4" instance=ExtResource( 21 )]
 
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
 [node name="GameOver" parent="UI" index="5" instance=ExtResource( 22 )]
 
 visible = false
@@ -197,9 +202,9 @@ bus = "Master"
 
 [connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
 
-[connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
-
 [connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
+
+[connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
 
 [connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 

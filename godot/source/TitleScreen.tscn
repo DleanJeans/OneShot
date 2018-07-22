@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://source/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://source/world/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,23 @@ size = 75
 use_mipmaps = false
 use_filter = false
 extra_spacing_top = 30
+font_data = ExtResource( 4 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=3]
+
+size = 15
+use_mipmaps = false
+use_filter = false
+extra_spacing_top = 30
+font_data = ExtResource( 4 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=2]
+
+size = 20
+use_mipmaps = false
+use_filter = false
 font_data = ExtResource( 4 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
@@ -47,7 +64,6 @@ _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="Background" type="Control" parent="." index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -62,11 +78,23 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="Player" parent="Background" index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 200, 310 )
+editor/display_folded = true
+position = Vector2( 100, 350 )
+rotation = -0.294704
+
+[node name="Gun" parent="Background/Player" index="1"]
+
+visible = true
 
 [node name="Player2" parent="Background" index="1" instance=ExtResource( 2 )]
 
+editor/display_folded = true
 position = Vector2( 600, 210 )
+rotation = 1.02252
+
+[node name="Gun" parent="Background/Player2" index="1"]
+
+visible = true
 
 [node name="Player3" parent="Background" index="2" instance=ExtResource( 2 )]
 
@@ -135,7 +163,32 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="PlayButton" type="Button" parent="." index="4"]
+[node name="Keys" type="Label" parent="." index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 800.0
+margin_top = -240.0
+margin_right = -11.0
+margin_bottom = -189.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+text = "F11 | Alt + Enter"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="PlayButton" type="Button" parent="." index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.5
@@ -160,6 +213,35 @@ flat = true
 align = 1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="FullScreenButton" type="Button" parent="." index="6"]
+
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -170.0
+margin_bottom = 76.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Fullscreen"
+flat = true
+align = 1
+_sections_unfolded = [ "custom_fonts" ]
+
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
 
+[connection signal="pressed" from="FullScreenButton" to="." method="toggle_fullscreen"]
 
+
+[editable path="Background/Player"]
+[editable path="Background/Player2"]

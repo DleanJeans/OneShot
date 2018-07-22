@@ -5,7 +5,7 @@ export(NodePath) var players
 onready var _players = get_node(players)
 
 func show():
-	var player_count = _players.count()
+	var player_count = _players.count() + 1
 	if player_count <= 1: return
 	
 	$Winner.hide()

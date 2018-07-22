@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 signal died
 signal shot_bullet
-signal cannot_shoot
+signal gun_empty
 signal picked_up_bullet
 
 export(float) var speed = 200
@@ -86,8 +86,11 @@ func face_angle(angle):
 var BulletScene = load('res://source/world/Bullet.tscn')
 
 func shoot():
-	if bullet_count <= 0 or not gun_cooled_down():
-		emit_signal('cannot_shoot')
+	if bullet_count <= 0:
+		emit_signal('gun_empty')
+		return
+	
+	if not gun_cooled_down():
 		return
 	
 	bullet = BulletScene.instance()
