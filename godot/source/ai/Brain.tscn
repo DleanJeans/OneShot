@@ -16,7 +16,7 @@
 [ext_resource path="res://source/fsm/transitions/NearRisingSea/NearRisingSea.tscn" type="PackedScene" id=14]
 [ext_resource path="res://source/fsm/transitions/Safe/Safe.tscn" type="PackedScene" id=15]
 [ext_resource path="res://source/fsm/transitions/BulletCollected/BulletCollected.tscn" type="PackedScene" id=16]
-[ext_resource path="res://source/fsm/transitions/SeeBullet/SeeBullet.tscn" type="PackedScene" id=17]
+[ext_resource path="res://source/fsm/transitions/SeeBulletLoot/SeeBulletLoot.tscn" type="PackedScene" id=17]
 [ext_resource path="res://source/fsm/transitions/OutOfBullets/OutOfBullets.tscn" type="PackedScene" id=18]
 
 [node name="Brain" type="Node2D"]
@@ -32,6 +32,8 @@ reaction_time = 1.0
 [node name="Steering" parent="." index="1" instance=ExtResource( 3 )]
 
 [node name="Attacking" parent="." index="2" instance=ExtResource( 4 )]
+
+enemy_distance = 500
 
 [node name="Looting" type="Node2D" parent="." index="3"]
 
@@ -55,7 +57,40 @@ enableDebug = false
 "Create new:/Create state with name:" = null
 "Create new:/Create transition with name:" = null
 GraphData = {
-
+"Attack": Vector2( 743, 452 ),
+"Attack_": Vector2( 743, 452 ),
+"Attack__": Vector2( 743, 452 ),
+"BulletCollected": Vector2( 153, 153 ),
+"BulletCollected_": Vector2( 249, 166 ),
+"BulletCollected__": Vector2( 249, 166 ),
+"CollectBullet": Vector2( 188, 292 ),
+"CollectBullet_": Vector2( 199, 264 ),
+"CollectBullet__": Vector2( 199, 264 ),
+"NearRisingSea": Vector2( 756, 241 ),
+"NearRisingSea_": Vector2( 756, 241 ),
+"NearRisingSea__": Vector2( 756, 241 ),
+"OutOfBullets": Vector2( 325, 449 ),
+"OutOfBullets_": Vector2( 435, 453 ),
+"OutOfBullets__": Vector2( 435, 453 ),
+"Roam": Vector2( 425, 255 ),
+"Roam_": Vector2( 425, 255 ),
+"Roam__": Vector2( 425, 255 ),
+"RunToLand": Vector2( 752, 100 ),
+"RunToLand_": Vector2( 752, 100 ),
+"RunToLand__": Vector2( 752, 100 ),
+"Safe": Vector2( 602, 171 ),
+"Safe_": Vector2( 602, 171 ),
+"Safe__": Vector2( 602, 171 ),
+"SeeBullet": Vector2( 281, 345 ),
+"SeeBulletLoot": Vector2( 358, 108 ),
+"SeeBullet_": Vector2( 281, 345 ),
+"SeeBullet__": Vector2( 281, 345 ),
+"SeeSomeone": Vector2( 528, 367 ),
+"SeeSomeone_": Vector2( 547, 385 ),
+"SeeSomeone__": Vector2( 547, 385 ),
+"TargetKilled": Vector2( 661, 315 ),
+"TargetKilled_": Vector2( 661, 315 ),
+"TargetKilled__": Vector2( 661, 315 )
 }
 
 [node name="States" type="Node2D" parent="FSM" index="0"]
@@ -72,7 +107,7 @@ GraphData = {
 
 [node name="SeeSomeone" parent="FSM/Transitions" index="0" instance=ExtResource( 12 )]
 
-path2SourceStates = [ NodePath(""), NodePath("../../States/Roam") ]
+path2SourceStates = [ NodePath(""), NodePath("../../States/Roam"), NodePath("../../States/CollectBullet") ]
 path2TargetState = NodePath("../../States/Attack")
 
 [node name="TargetKilled" parent="FSM/Transitions" index="1" instance=ExtResource( 13 )]
@@ -95,9 +130,9 @@ path2TargetState = NodePath("../../States/Roam")
 path2SourceStates = [ NodePath(""), NodePath("../../States/CollectBullet") ]
 path2TargetState = NodePath("../../States/Roam")
 
-[node name="SeeBullet" parent="FSM/Transitions" index="5" instance=ExtResource( 17 )]
+[node name="SeeBulletLoot" parent="FSM/Transitions" index="5" instance=ExtResource( 17 )]
 
-path2SourceStates = [ NodePath(""), NodePath("../../States/Roam") ]
+path2SourceStates = [ NodePath(""), NodePath("../../States/Roam"), NodePath("../../States/CollectBullet") ]
 path2TargetState = NodePath("../../States/CollectBullet")
 
 [node name="OutOfBullets" parent="FSM/Transitions" index="6" instance=ExtResource( 18 )]

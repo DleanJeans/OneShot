@@ -10,7 +10,20 @@ export(float) var speed = 200
 onready var velocity = Vector2()
 
 var dead = false
-var bullet_count = 3
+var bullet
+var bullet_count = 0
+
+func target_is(player):
+	if not has_node('Brain'): return false
+	var attacking = $'Brain/Attacking'
+	var target = attacking.target
+	return target == player
+
+func just_shot():
+	return bullet != null
+
+func gun_cooled_down():
+	return $GunCooldownTimer.time_left == 0
 
 func has_bullets():
 	return bullet_count > 0
@@ -26,6 +39,8 @@ func queue_free():
 
 func die():
 	dead = true
+	collision_layer = 0
+	collision_mask = 0
 	emit_signal('died')
 
 func move_up():
@@ -67,13 +82,18 @@ func face_angle(angle):
 var BulletScene = load('res://source/world/Bullet.tscn')
 
 func shoot():
-	if bullet_count <= 0:
+	if bullet_count <= 0 or not gun_cooled_down():
 		emit_signal('cannot_shoot')
 		return
 	
-	var bullet = BulletScene.instance()
+	bullet = BulletScene.instance()
 	bullet.shoot(self)
 	bullet_count -= 1
+	bullet.connect('stopped', self, '_remove_bullet_ref')
 	get_parent().add_bullet(bullet)
+	$GunCooldownTimer.start()
 	
 	emit_signal('shot_bullet')
+
+func _remove_bullet_ref():
+	bullet = null

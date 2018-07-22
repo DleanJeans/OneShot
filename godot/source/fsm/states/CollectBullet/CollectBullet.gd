@@ -11,7 +11,7 @@ func update(deltaTime, param0=null, param1=null, param2=null, param3=null, param
 	_go_to_bullet()
 
 func exit(toState=null):
-	pass
+	logicRoot.vision.enemies = []
 
 func _go_to_bullet():
 	var angle = logicRoot.looting.angle_to_loot()

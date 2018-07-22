@@ -12,10 +12,12 @@ func show():
 	$Placement.text = 'You placed\n#' + str(player_count)
 	
 	.show()
+	$AnimationPlayer.play('show')
 
 func show_for_winner():
 	$Winner.show()
 	$Placement.text = 'You placed #1'
+	$AnimationPlayer.play('show')
 	.show()
 
 func _ready():

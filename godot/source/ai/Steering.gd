@@ -1,6 +1,7 @@
 extends Node2D
 
 var direction = Vector2()
+var rotated = false
 
 func change_random_direction():
 	var angle = rand_range(-PI, PI)
@@ -21,6 +22,11 @@ func _move_towards_direction():
 	
 	me.stop_moving()
 	
+	if rotated:
+		_move_rotated(me)
+	else: _move_normal(me)
+
+func _move_normal(me):
 	if direction.x < -0.5:
 		me.move_left()
 	elif direction.x > 0.5:
@@ -29,4 +35,15 @@ func _move_towards_direction():
 	if direction.y < -0.5:
 		me.move_up()
 	elif direction.y > 0.5:
+		me.move_down()
+
+func _move_rotated(me):
+	if direction.y < -0.5:
+		me.move_left()
+	elif direction.y > 0.5:
+		me.move_right()
+	
+	if direction.x < -0.5:
+		me.move_up()
+	elif direction.x > 0.5:
 		me.move_down()

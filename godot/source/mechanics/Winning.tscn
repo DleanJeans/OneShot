@@ -8,4 +8,13 @@ script = ExtResource( 1 )
 players = null
 player = null
 
+[node name="CheckTimer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
+[connection signal="timeout" from="CheckTimer" to="." method="check_for_winner"]
+
 

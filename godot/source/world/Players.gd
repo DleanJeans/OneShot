@@ -14,4 +14,4 @@ func count():
 	return num
 
 func count_alive():
-	return count() - 1
+	return count()

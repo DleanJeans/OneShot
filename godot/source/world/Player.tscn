@@ -19,7 +19,7 @@ collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
-speed = 200
+speed = 300.0
 
 [node name="Shape" type="CollisionShape2D" parent="." index="0"]
 
@@ -40,5 +40,12 @@ modulate = Color( 0.988281, 0.910438, 0.644699, 1 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="GunCooldownTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
 
 

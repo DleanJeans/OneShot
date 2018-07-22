@@ -5,10 +5,6 @@ export(float) var reaction_time = 0.5
 var enemies = []
 var bullets_on_screen = []
 
-func print_enemies():
-	#print(enemies)
-	pass
-
 func see_enemies():
 	return enemies.size() > 0
 
@@ -19,7 +15,8 @@ func get_bullet():
 	return bullets_on_screen[0]
 
 func get_enemy():
-	return enemies.front()
+	var random_index = randi() % enemies.size()
+	return enemies[random_index]
 
 func remove_enemy(e):
 	enemies.erase(e)

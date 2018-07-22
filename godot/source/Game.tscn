@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://source/Game.gd" type="Script" id=1]
 [ext_resource path="res://source/mechanics/PlayerControl.tscn" type="PackedScene" id=2]
@@ -6,22 +6,23 @@
 [ext_resource path="res://source/mechanics/Spawners.gd" type="Script" id=4]
 [ext_resource path="res://source/mechanics/PlayerSpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/mechanics/TreeSpawner.tscn" type="PackedScene" id=6]
-[ext_resource path="res://source/mechanics/Death.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/mechanics/LootSpawner.gd" type="Script" id=7]
 [ext_resource path="res://source/mechanics/Winning.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/mechanics/LootDrop.tscn" type="PackedScene" id=9]
-[ext_resource path="res://source/juice/DeathAnimationSystem.tscn" type="PackedScene" id=10]
-[ext_resource path="res://source/world/Island.tscn" type="PackedScene" id=11]
-[ext_resource path="res://source/world/TileMap.gd" type="Script" id=12]
-[ext_resource path="res://source/world/Bullets.gd" type="Script" id=13]
-[ext_resource path="res://source/world/Players.gd" type="Script" id=14]
-[ext_resource path="res://source/world/Player.tscn" type="PackedScene" id=15]
-[ext_resource path="res://source/ui/Time.tscn" type="PackedScene" id=16]
-[ext_resource path="res://source/ui/Deathbar.tscn" type="PackedScene" id=17]
-[ext_resource path="res://source/ui/Alive.tscn" type="PackedScene" id=18]
-[ext_resource path="res://source/ui/BulletCount.tscn" type="PackedScene" id=19]
-[ext_resource path="res://source/ui/GameOver.tscn" type="PackedScene" id=20]
+[ext_resource path="res://source/mechanics/Death.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/mechanics/LootDrop.tscn" type="PackedScene" id=10]
+[ext_resource path="res://source/juice/DeathAnimationSystem.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/world/Island.tscn" type="PackedScene" id=12]
+[ext_resource path="res://source/world/TileMap.gd" type="Script" id=13]
+[ext_resource path="res://source/world/Bullets.gd" type="Script" id=14]
+[ext_resource path="res://source/world/Players.gd" type="Script" id=15]
+[ext_resource path="res://source/world/Player.tscn" type="PackedScene" id=16]
+[ext_resource path="res://source/ui/Time.tscn" type="PackedScene" id=17]
+[ext_resource path="res://source/ui/Deathbar.tscn" type="PackedScene" id=18]
+[ext_resource path="res://source/ui/Alive.tscn" type="PackedScene" id=19]
+[ext_resource path="res://source/ui/BulletCount.tscn" type="PackedScene" id=20]
+[ext_resource path="res://source/ui/GameOver.tscn" type="PackedScene" id=21]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -33,7 +34,8 @@ player = NodePath("../../World/Players/Player")
 
 [node name="ShrinkingCircle" parent="Mechanics" index="1" instance=ExtResource( 3 )]
 
-initial_radius = 7500.0
+initial_radius = 5000.0
+shrink_percent = 0.5
 
 [node name="Spawners" type="Node" parent="Mechanics" index="2"]
 
@@ -43,7 +45,7 @@ shrinking_circle = NodePath("../ShrinkingCircle")
 
 [node name="PlayerSpawner" parent="Mechanics/Spawners" index="0" instance=ExtResource( 5 )]
 
-player_count = 19
+player_count = 49
 players = NodePath("../../../World/Players")
 player = NodePath("../../../World/Players/Player")
 
@@ -52,28 +54,36 @@ player = NodePath("../../../World/Players/Player")
 num_trees = 300
 trees = NodePath("../../../World/Trees")
 
-[node name="Death" parent="Mechanics" index="3" instance=ExtResource( 7 )]
+[node name="LootSpawner" type="Node" parent="Mechanics/Spawners" index="2"]
+
+script = ExtResource( 7 )
+loots = NodePath("../../../World/Loots")
+amount = 50
+min_amount = 3
+max_amount = 5
+
+[node name="Winning" parent="Mechanics" index="3" instance=ExtResource( 8 )]
+
+players = NodePath("../../World/Players")
+player = NodePath("../../World/Players/Player")
+
+[node name="Death" parent="Mechanics" index="4" instance=ExtResource( 9 )]
 
 process_interval = 0.2
 shrinking_circle = NodePath("../ShrinkingCircle")
 players = NodePath("../../World/Players")
 
-[node name="Winning" parent="Mechanics" index="4" instance=ExtResource( 8 )]
-
-players = NodePath("../../World/Players")
-player = NodePath("../../World/Players/Player")
-
-[node name="LootDrop" parent="Mechanics" index="5" instance=ExtResource( 9 )]
+[node name="LootDrop" parent="Mechanics" index="5" instance=ExtResource( 10 )]
 
 loots = NodePath("../../World/Loots")
 
 [node name="Juice" type="Node" parent="." index="1"]
 
-[node name="DeathAnimationSystem" parent="Juice" index="0" instance=ExtResource( 10 )]
+[node name="DeathAnimationSystem" parent="Juice" index="0" instance=ExtResource( 11 )]
 
 [node name="World" type="Node" parent="." index="2"]
 
-[node name="Island" parent="World" index="0" instance=ExtResource( 11 )]
+[node name="Island" parent="World" index="0" instance=ExtResource( 12 )]
 
 drawing = false
 shrinking_circle = NodePath("../../Mechanics/ShrinkingCircle")
@@ -82,7 +92,7 @@ shrinking_circle = NodePath("../../Mechanics/ShrinkingCircle")
 
 position = Vector2( 0, 10 )
 scale = Vector2( 1000, 1000 )
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 tilemap_width = 10
 tilemap_height = 10.0
@@ -91,19 +101,18 @@ map_color = Color( 0.0712738, 0.675781, 0.290821, 1 )
 
 [node name="Bullets" type="Node" parent="World" index="2"]
 
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 death = NodePath("../../Mechanics/Death")
 
 [node name="Players" type="Node" parent="World" index="3"]
 
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 bullets = NodePath("../Bullets")
 
-[node name="Player" parent="World/Players" index="0" instance=ExtResource( 15 )]
+[node name="Player" parent="World/Players" index="0" instance=ExtResource( 16 )]
 
 position = Vector2( 480, 270 )
 _sections_unfolded = [ "Collision", "Transform", "Visibility" ]
-speed = 500.0
 
 [node name="Camera" type="Camera2D" parent="World/Players/Player" index="2"]
 
@@ -143,51 +152,47 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Time" parent="UI" index="0" instance=ExtResource( 16 )]
+[node name="Time" parent="UI" index="0" instance=ExtResource( 17 )]
 
 margin_top = 80.0
 margin_bottom = 110.0
 shrinking_circle = NodePath("../../Mechanics/ShrinkingCircle")
 
-[node name="Deathbar" parent="UI" index="1" instance=ExtResource( 17 )]
+[node name="Deathbar" parent="UI" index="1" instance=ExtResource( 18 )]
 
 player = NodePath("../../World/Players/Player")
 death_mechanic = NodePath("../../Mechanics/Death")
 
-[node name="Alive" parent="UI" index="2" instance=ExtResource( 18 )]
+[node name="Alive" parent="UI" index="2" instance=ExtResource( 19 )]
 
 players = NodePath("../../World/Players")
 
-[node name="BulletCount" parent="UI" index="3" instance=ExtResource( 19 )]
+[node name="BulletCount" parent="UI" index="3" instance=ExtResource( 20 )]
 
 player = NodePath("../../World/Players/Player")
 
-[node name="GameOver" parent="UI" index="4" instance=ExtResource( 20 )]
+[node name="GameOver" parent="UI" index="4" instance=ExtResource( 21 )]
 
 visible = false
 players = NodePath("../../World/Players")
-
-[connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
-
-[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
-
-[connection signal="died" from="Mechanics/Death" to="UI/Alive" method="update"]
-
-[connection signal="died" from="Mechanics/Death" to="Mechanics/Winning" method="check_for_winner"]
-
-[connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
-
-[connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
-
-[connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
-
-[connection signal="process_step" from="Mechanics/Death" to="UI/Deathbar" method="process"]
 
 [connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
 
 [connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
 
 [connection signal="player_won" from="Mechanics/Winning" to="UI/GameOver" method="show_for_winner"]
+
+[connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
+
+[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
+
+[connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
+
+[connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
+
+[connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
+
+[connection signal="process_step" from="Mechanics/Death" to="UI/Deathbar" method="process"]
 
 [connection signal="drawn" from="World/TileMap" to="Mechanics/Spawners" method="populate"]
 

@@ -1,5 +1,7 @@
 extends Area2D
 
+signal stopped
+
 export(float) var speed = 2000
 export(float) var shot_range = 1000
 
@@ -44,6 +46,7 @@ func _stop_if_overrange(delta):
 
 func stop():
 	stopped = true
+	emit_signal('stopped')
 
 func _draw_trail():
 	if line.points.size() < 2:

@@ -11,15 +11,19 @@ onready var _players = get_node(players)
 onready var _player = get_node(player)
 
 func populate():
-	var position = get_parent().get_random_position_in_rect()
+	var position = random_position()
 	_player.position = position
 	_player.show()
 	
 	for i in range(0, player_count):
-		position = get_parent().get_random_position_in_rect()
+		position = random_position()
 		var player = PlayerScene.instance()
 		var brain = BrainScene.instance()
 		
 		player.position = position
 		player.add_child(brain)
 		_players.add_child(player, true)
+
+func random_position():
+	var max_dist = get_parent().radius_percent(0.1)
+	return get_parent().random_position_circle(0, max_dist)
