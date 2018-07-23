@@ -3,11 +3,11 @@ extends Node
 signal started_waiting
 signal started_rising
 
-export(PoolIntArray) onready var wait_times = [30, 25, 20, 15, 10, 5]
-export(PoolIntArray) onready var rise_times = [10, 10, 10, 5, 5, 5]
+export(PoolIntArray) onready var wait_times = [20, 15, 10, 5]
+export(PoolIntArray) onready var rise_times = [10, 5, 5, 5]
 
 export(float) var initial_radius = 4000
-export(float) var shrink_percent = 0.6
+export(float) var shrink_percent = 0.5
 
 onready var radius = initial_radius
 
