@@ -2,7 +2,7 @@ extends Node
 
 func _input(event):
 	if Input.is_key_pressed(KEY_QUOTELEFT):
-		Engine.time_scale = 0.1
+		Engine.time_scale = 0.25
 	elif Input.is_key_pressed(KEY_1):
 		Engine.time_scale = 1
 	elif Input.is_key_pressed(KEY_2):
