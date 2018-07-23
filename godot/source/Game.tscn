@@ -6,7 +6,7 @@
 [ext_resource path="res://source/mechanics/Spawners.gd" type="Script" id=4]
 [ext_resource path="res://source/mechanics/PlayerSpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/mechanics/TreeSpawner.tscn" type="PackedScene" id=6]
-[ext_resource path="res://source/mechanics/LootSpawner.gd" type="Script" id=7]
+[ext_resource path="res://source/mechanics/LootSpawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/mechanics/Winning.tscn" type="PackedScene" id=8]
 [ext_resource path="res://source/mechanics/Death.tscn" type="PackedScene" id=9]
 [ext_resource path="res://source/mechanics/LootDrop.tscn" type="PackedScene" id=10]
@@ -56,13 +56,7 @@ player = NodePath("../../../World/Players/Player")
 num_trees = 300
 trees = NodePath("../../../World/Trees")
 
-[node name="LootSpawner" type="Node" parent="Mechanics/Spawners" index="2"]
-
-script = ExtResource( 7 )
-loots = NodePath("../../../World/Loots")
-amount = 50
-min_amount = 3
-max_amount = 5
+[node name="LootSpawner" parent="Mechanics/Spawners" index="2" instance=ExtResource( 7 )]
 
 [node name="Winning" parent="Mechanics" index="3" instance=ExtResource( 8 )]
 
@@ -194,19 +188,19 @@ autoplay = true
 mix_target = 0
 bus = "Master"
 
-[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
-
 [connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
+
+[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
 
 [connection signal="player_won" from="Mechanics/Winning" to="UI/GameOver" method="show_for_winner"]
 
 [connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
 
-[connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
+[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 
 [connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
 
-[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
+[connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
 
 [connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 

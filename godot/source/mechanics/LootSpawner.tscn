@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/mechanics/LootSpawner.gd" type="Script" id=1]
+
+[node name="LootSpawner" type="Node"]
+
+script = ExtResource( 1 )
+loots = NodePath("../../../World/Loots")
+amount = 50
+min_amount = 3
+max_amount = 5
+
+

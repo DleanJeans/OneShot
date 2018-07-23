@@ -58,7 +58,7 @@ func _target_null():
 	return target == null or !target_ref.get_ref()
 
 func _get_target_if_not_yet():
-	if target == null and vision.see_enemies():
+	if _target_null() and vision.see_enemies():
 		target = vision.get_enemy()
 		target_ref = weakref(target)
 		if _target_null(): return

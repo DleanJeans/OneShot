@@ -22,9 +22,16 @@ func populate():
 		while true:
 			position = get_parent().random_position_circle(min_dist, max_dist)
 			loot.position = position
-			if loot.get_overlapping_bodies().size() == 0:
+			if not _is_under_trees(loot):
 				break
 		
 		loot.amount = random_amount
 		
 		_loots.add_child(loot)
+
+func _is_under_trees(loot):
+	var areas = loot.get_overlapping_areas()
+	for a in areas:
+		if a.get_parent() is load('res://source/mechanics/TreeSpawner.gd'):
+			return true
+	return false
