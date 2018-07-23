@@ -86,6 +86,8 @@ func face_angle(angle):
 var BulletScene = load('res://source/world/Bullet.tscn')
 
 func shoot():
+	if dead: return
+	
 	if bullet_count <= 0:
 		emit_signal('gun_empty')
 		return
