@@ -16,6 +16,4 @@ autostart = true
 
 [connection signal="timeout" from="ChangeTimer" to="." method="_change_direction"]
 
-[connection signal="timeout" from="ChangeTimer" to="." method="_on_ChangeTimer_timeout"]
-
 
