@@ -95,12 +95,12 @@ tilemap_height = 10.0
 line_color = Color( 0, 0, 0, 0.5 )
 map_color = Color( 0.0712738, 0.675781, 0.290821, 1 )
 
-[node name="Bullets" type="Node" parent="World" index="2"]
+[node name="Bullets" type="Node2D" parent="World" index="2"]
 
 script = ExtResource( 14 )
 death = NodePath("../../Mechanics/Death")
 
-[node name="Players" type="Node" parent="World" index="3"]
+[node name="Players" type="Node2D" parent="World" index="3"]
 
 script = ExtResource( 15 )
 bullets = NodePath("../Bullets")
@@ -136,9 +136,9 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin" ]
 
-[node name="Loots" type="Node" parent="World" index="4"]
+[node name="Loots" type="Node2D" parent="World" index="4"]
 
-[node name="Trees" type="Node" parent="World" index="5"]
+[node name="Trees" type="Node2D" parent="World" index="5"]
 
 [node name="UI" type="CanvasLayer" parent="." index="3"]
 
@@ -188,19 +188,19 @@ autoplay = true
 mix_target = 0
 bus = "Master"
 
-[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
-
 [connection signal="game_over" from="Mechanics/Winning" to="Mechanics/Death" method="stop"]
+
+[connection signal="game_over" from="Mechanics/Winning" to="Mechanics/ShrinkingCircle" method="stop"]
 
 [connection signal="player_won" from="Mechanics/Winning" to="UI/GameOver" method="show_for_winner"]
 
 [connection signal="added_to_record" from="Mechanics/Death" to="UI/Deathbar" method="start_rendering_if_is_player"]
 
-[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
-
 [connection signal="died" from="Mechanics/Death" to="Mechanics/LootDrop" method="drop_loots"]
 
 [connection signal="died" from="Mechanics/Death" to="Juice/DeathAnimationSystem" method="animation_death"]
+
+[connection signal="died" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 
 [connection signal="max_health" from="Mechanics/Death" to="UI/Deathbar" method="stop_rendering_if_is_player"]
 
